@@ -1,5 +1,6 @@
 package com.jrendon.a08sensorsexample;
 
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -7,6 +8,7 @@ import android.hardware.SensorManager;
 import android.icu.util.Output;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class SensorActivity extends AppCompatActivity implements SensorEventListener {
@@ -14,7 +16,7 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
     SensorManager sm;
     Sensor acc;
     TextView outputX, outputY, outputZ;
-
+    LinearLayout lin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,7 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
         outputX = findViewById(R.id.textView1);
         outputY = findViewById(R.id.textView2);
         outputZ = findViewById(R.id.textView3);
+        lin = findViewById(R.id.myLayout);
 
         sm = (SensorManager) getSystemService(SENSOR_SERVICE);
         acc = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -50,6 +53,10 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
         outputX.setText("x: " + values[0]);
         outputY.setText("y: " + values[1]);
         outputZ.setText("z: " + values[2]);
+
+        if (values[0] > 1) {
+            lin.setBackgroundColor(Color.GREEN);
+        }
     }
 
     @Override
